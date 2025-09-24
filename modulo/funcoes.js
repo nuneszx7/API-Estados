@@ -95,7 +95,25 @@ const getCapitalBySigla = function (sigla) {
 //Retorna os estados de uma região
 const getEstadosByRegiao = function (regiao) {
 
+    let estados = regiao
+    let estadosRegiao = []
 
+    let estadosDessaRegiao = dados.listaDeEstados.estados.find(estado => estado.regiao.toUpperCase() === estados.toUpperCase())
+
+    if (estadosDessaRegiao) {
+
+        estadosRegiao = {
+            status_code: 200,
+            uf: estado.sigla,
+            descricao: estado.nome,
+            capital: estado.capital,
+            regiao: estado.regiao
+        }
+    }else {
+        estadosRegiao = {status_code: 404, message: 'Nenhum estado encontrado com a região informada.'}
+    }
+
+    return estadosRegiao
 
 }
 
@@ -119,6 +137,7 @@ module.exports = {
 
     getAllEstados,
     getEstadoBySigla,
-    getCapitalBySigla
+    getCapitalBySigla,
+    getEstadosByRegiao
 
 }

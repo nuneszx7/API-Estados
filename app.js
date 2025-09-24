@@ -37,6 +37,8 @@ app.use((request, response, next)=>{
 //Response -> Retorno de dados na API
 
 //ENDPOINTS
+
+//Buscar todos os estados
 app.get('/v1/estados', function(request, response){
 
     //Pesquisa na função de estados 
@@ -48,6 +50,7 @@ app.get('/v1/estados', function(request, response){
 
 })
 
+//Buscar estados por sua sigla
 app.get('/v1/estado/:sigla', function(request, response){
 
     let uf = request.params.sigla
@@ -57,6 +60,7 @@ app.get('/v1/estado/:sigla', function(request, response){
 
 })
 
+//Buscar capital por uma sigla (do estado)
 app.get('v1/estado/capital/:sigla', function(request, response){
 
     let uf = request.params.sigla
@@ -67,18 +71,34 @@ app.get('v1/estado/capital/:sigla', function(request, response){
 
 })
 
-app.get('/v1/estados/regiao/:id', function(request, response){
+//Filtrar estados por uma região
+// app.get('/v1/estados/regiao/:id', function(request, response){
 
-    let sigla = request.query.uf
-    let estado = request.query.estado
-    let regiao = request.query.regiao
-    let id = request.params.id
-    console.log(sigla)
-    console.log(estado)
-    console.log(regiao)
-    console.log(id)
+//     let sigla = request.query.uf
+//     let estado = request.query.estado
+//     let regiao = request.query.regiao
+//     let id = request.params.id
+//     response.status(estados.status_code)
+//     response.json(estados)
+
+// })
+
+//Buscar estados por uma região
+app.get('v1/estados/regiao/:id', function(request, response){
+
+    let regiao = request.params.id
+    let estados = dados.getEstadosByRegiao(regiao)
+    response.status(estados.status_code)
+    response.json(estados)
+
+
+
+
 
 })
+
+    
+
 
 
 //Start na API
